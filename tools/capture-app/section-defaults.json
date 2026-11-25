@@ -1,0 +1,563 @@
+{
+ "hero_slider": {
+  "label": "Hero",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "blog",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "background": "transparent",
+   "spacingTop": true,
+   "spacingBottom": true,
+   "autoplay": true,
+   "autoplaySeconds": 6,
+   "showArrows": true,
+   "showDots": true,
+   "height": "520px",
+   "fullWidth": true,
+   "slides": [
+    {
+     "id": "slide_1",
+     "backgroundUrl": "",
+     "mobileBackgroundUrl": "",
+     "imageAlt": "",
+     "link": "/products"
+    }
+   ]
+  },
+  "locked": false
+ },
+ "cta_banner": {
+  "label": "CTA Banner",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "product",
+   "cart",
+   "blog",
+   "blog_detail",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "title": "",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "transparent",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "eyebrow": "",
+   "description": "",
+   "buttonText": "Shop now",
+   "buttonLink": "/products",
+   "secondaryButtonText": "",
+   "secondaryButtonLink": "",
+   "backgroundColor": "#0b1b3a",
+   "textColor": "#ffffff",
+   "backgroundUrl": "",
+   "mobileBackgroundUrl": "",
+   "imageUrl": "",
+   "imageAlt": "",
+   "overlay": "",
+   "align": "left",
+   "height": "300px"
+  },
+  "locked": false
+ },
+ "hero_showcase": {
+  "label": "Hero Showcase",
+  "scopes": [
+   "home"
+  ],
+  "defaults": {
+   "showSidebar": true,
+   "showFeatures": true,
+   "showAllLink": true,
+   "allLabel": "All Categories",
+   "allLink": "/categories",
+   "autoplay": true,
+   "autoplaySeconds": 6,
+   "categories": [],
+   "slides": [
+    {
+     "id": "slide_1",
+     "eyebrow": "New Arrivals",
+     "title": "",
+     "description": "",
+     "buttonText": "Shop Now",
+     "buttonLink": "/products",
+     "imageUrl": ""
+    }
+   ],
+   "features": [
+    {
+     "id": "f1",
+     "icon": "shipping",
+     "title": "Free Shipping",
+     "subtitle": "For all orders over $120"
+    },
+    {
+     "id": "f2",
+     "icon": "support",
+     "title": "24/7 Support",
+     "subtitle": "Online Support 24/7"
+    },
+    {
+     "id": "f3",
+     "icon": "payment",
+     "title": "Secure Payment",
+     "subtitle": "100% Secure Payment"
+    },
+    {
+     "id": "f4",
+     "icon": "returns",
+     "title": "Easy Returns",
+     "subtitle": "30-Day Money Back"
+    }
+   ]
+  },
+  "locked": false
+ },
+ "feature_strip": {
+  "label": "Feature Strip",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "product",
+   "cart",
+   "checkout",
+   "account",
+   "blog",
+   "footer",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "title": "",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "transparent",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "style": "boxed",
+   "panelBackground": "",
+   "responsive": {
+    "desktop": {
+     "columns": 4
+    },
+    "tablet": {
+     "columns": 2
+    },
+    "mobile": {
+     "columns": 1
+    }
+   },
+   "items": [
+    {
+     "id": "f1",
+     "icon": "shipping",
+     "title": "Free shipping",
+     "description": "On qualifying orders",
+     "link": "",
+     "iconUrl": ""
+    },
+    {
+     "id": "f2",
+     "icon": "secure",
+     "title": "Secure payment",
+     "description": "Protected checkout",
+     "link": "",
+     "iconUrl": ""
+    },
+    {
+     "id": "f3",
+     "icon": "returns",
+     "title": "Easy returns",
+     "description": "Hassle-free process",
+     "link": "",
+     "iconUrl": ""
+    },
+    {
+     "id": "f4",
+     "icon": "support",
+     "title": "Customer support",
+     "description": "We're here to help",
+     "link": "",
+     "iconUrl": ""
+    }
+   ]
+  },
+  "locked": false
+ },
+ "product_showcase": {
+  "label": "Product Showcase",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "title": "",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "transparent",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "panelBackground": "",
+   "eyebrow": "Deal of the day",
+   "description": "",
+   "buttonText": "Shop this deal",
+   "showRating": true,
+   "showStock": true,
+   "showDiscount": true,
+   "showCountdown": true,
+   "countdownLabel": "Offer ends in",
+   "countdownHours": 24,
+   "countdownEndsAt": "",
+   "attributes": [],
+   "dataSource": {
+    "source": "featured",
+    "limit": 1
+   }
+  },
+  "locked": false
+ },
+ "promo_grid": {
+  "label": "Promo Grid",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "product",
+   "blog",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "title": "",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "transparent",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "align": "left",
+   "responsive": {
+    "desktop": {
+     "columns": 4
+    },
+    "tablet": {
+     "columns": 2
+    },
+    "mobile": {
+     "columns": 1
+    }
+   },
+   "cards": [
+    {
+     "id": "card_1",
+     "size": "large",
+     "eyebrow": "",
+     "title": "",
+     "subtitle": "",
+     "badge": "",
+     "priceText": "",
+     "buttonText": "Shop now",
+     "buttonLink": "/products",
+     "link": "",
+     "imageUrl": "",
+     "productImageUrl": "",
+     "colorFrom": "#1d4ed8",
+     "colorTo": "#0b2a6b",
+     "textColor": "#ffffff",
+     "overlay": ""
+    }
+   ]
+  },
+  "locked": false
+ },
+ "reviews": {
+  "label": "Reviews",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "product",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "title": "What our customers say",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "transparent",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "layout": "featured",
+   "align": "left",
+   "showSummary": true,
+   "summaryText": "from {total} verified reviews",
+   "showProduct": true,
+   "showDate": true,
+   "showViewAll": false,
+   "viewAllText": "",
+   "viewAllLink": "",
+   "dataSource": {
+    "source": "manual",
+    "limit": 5
+   },
+   "verifiedLabel": "Verified buyer",
+   "testimonials": [],
+   "responsive": {
+    "desktop": {
+     "columns": 3
+    },
+    "tablet": {
+     "columns": 2
+    },
+    "mobile": {
+     "columns": 1
+    }
+   }
+  },
+  "locked": false
+ },
+ "newsletter": {
+  "label": "Newsletter",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "blog",
+   "blog_detail",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "title": "Subscribe to our newsletter",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "#0b1b3a",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "placeholder": "Enter your email",
+   "buttonText": "Subscribe",
+   "successText": "Thanks for subscribing.",
+   "textColor": "#ffffff",
+   "backgroundUrl": ""
+  },
+  "locked": false
+ },
+ "header_bar": {
+  "label": "Main Header",
+  "scopes": [
+   "header"
+  ],
+  "defaults": {
+   "brandName": "",
+   "tagline": "",
+   "layout": "logo-left",
+   "searchPlaceholder": "Search for products...",
+   "showSearchScope": true,
+   "scopeLabel": "All categories",
+   "showCompare": false,
+   "showSearch": true,
+   "showAccount": true,
+   "accountLabel": "Account",
+   "showWishlist": true,
+   "showCart": true,
+   "showPhone": false,
+   "phoneLabel": "Call us",
+   "showOrderTracking": false,
+   "orderTrackingLabel": "Track",
+   "orderTrackingLink": "/dashboard/orders",
+   "showNotifications": false,
+   "notificationsLink": "/dashboard",
+   "compareLink": "/products?compare=1",
+   "sticky": true,
+   "background": "#ffffff",
+   "textColor": ""
+  },
+  "locked": false
+ },
+ "header_nav": {
+  "label": "Navigation",
+  "scopes": [
+   "header"
+  ],
+  "defaults": {
+   "menuLocation": "primary",
+   "showCategories": true,
+   "showCategoriesButton": true,
+   "categoriesLabel": "All Categories",
+   "showAccount": true,
+   "links": "",
+   "ctaText": "",
+   "ctaLink": "",
+   "categoryPromoImage": "",
+   "categoryPromoLabel": "",
+   "categoryPromoTitle": "",
+   "categoryPromoCta": "",
+   "categoryPromoLink": "/products",
+   "background": "#ffffff",
+   "textColor": ""
+  },
+  "locked": false
+ },
+ "footer_columns": {
+  "label": "Footer Columns",
+  "scopes": [
+   "footer"
+  ],
+  "defaults": {
+   "aboutText": "",
+   "columns": [
+    {
+     "id": "fc_1",
+     "heading": "Shop",
+     "menuLocation": "",
+     "links": ""
+    }
+   ],
+   "contactHeading": "Contact Us",
+   "phone": "",
+   "email": "",
+   "address": "",
+   "appHeading": "",
+   "appText": "",
+   "appLinks": [],
+   "socialHeading": "",
+   "brandName": "",
+   "background": "#0a1a3c",
+   "textColor": "#ffffff",
+   "linkHoverColor": "",
+   "responsive": {
+    "desktop": {
+     "columns": 4
+    },
+    "tablet": {
+     "columns": 2
+    },
+    "mobile": {
+     "columns": 1
+    }
+   }
+  },
+  "locked": false
+ },
+ "footer_bottom": {
+  "label": "Footer Bottom Bar",
+  "scopes": [
+   "footer"
+  ],
+  "defaults": {
+   "copyright": "© {year} {store}. All rights reserved.",
+   "menuLocation": "",
+   "links": "",
+   "showPaymentIcons": true,
+   "paymentMethods": "mastercard,visa,paypal,applepay",
+   "showSocialLinks": true,
+   "background": "#061229",
+   "textColor": "#9ca3af",
+   "linkHoverColor": ""
+  },
+  "locked": true
+ },
+ "collection_banner": {
+  "label": "Collection Banner",
+  "scopes": [
+   "home"
+  ],
+  "defaults": {
+   "title": "",
+   "subtitle": "",
+   "padding": "20px",
+   "background": "#fd7e14",
+   "isFullWidth": false,
+   "spacingTop": true,
+   "spacingBottom": true,
+   "description": "",
+   "bgImageUrl": ""
+  },
+  "locked": false
+ },
+ "marquee_ticker": {
+  "label": "Scrolling Ticker",
+  "scopes": [
+   "home",
+   "shop",
+   "category",
+   "blog",
+   "product",
+   "header",
+   "footer",
+   "brand",
+   "brands",
+   "campaigns",
+   "campaign"
+  ],
+  "defaults": {
+   "background": "transparent",
+   "spacingTop": true,
+   "spacingBottom": true,
+   "speed": 70,
+   "items": [
+    {
+     "id": "tick_1",
+     "text": "",
+     "weight": "bold",
+     "accent": false
+    }
+   ]
+  },
+  "locked": false
+ },
+ "_templates": [
+  "home",
+  "shop",
+  "category",
+  "product",
+  "cart",
+  "checkout",
+  "account",
+  "blog",
+  "blog_detail",
+  "not_found",
+  "brands",
+  "brand",
+  "campaigns",
+  "campaign"
+ ],
+ "_regions": [
+  "header",
+  "mega_menu",
+  "footer"
+ ]
+}

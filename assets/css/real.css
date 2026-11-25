@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Real FullStro assets: dashboard screenshots (Reel), partner logos, themes
+   ========================================================================== */
+
+/* ---------- Reel: a camera over a real screenshot */
+.reel{position:relative;overflow:hidden;background:#F4F6FB;isolation:isolate}
+.reel-cam{position:absolute;left:0;top:0;transform-origin:0 0;transition:transform 1.15s var(--ease);will-change:transform}
+.reel-cam img{display:block;width:100%;height:100%;user-select:none;-webkit-user-drag:none}
+.reel.swap .reel-cam{animation:reelSwap .38s ease}
+@keyframes reelSwap{from{opacity:.25;filter:blur(3px)}to{opacity:1;filter:none}}
+.reel-ring{position:absolute;border:2.5px solid var(--sky);opacity:0;pointer-events:none;
+  box-shadow:0 0 0 100vmax rgba(15,20,66,.14),0 0 0 6px rgba(9,176,238,.18);
+  transition:left 1.15s var(--ease),top 1.15s var(--ease),width 1.15s var(--ease),height 1.15s var(--ease),opacity .4s}
+.reel-cursor{position:absolute;left:0;top:0;width:24px;height:24px;z-index:3;opacity:0;pointer-events:none;
+  transition:transform 1.05s var(--ease) .12s,opacity .3s;filter:drop-shadow(0 4px 6px rgba(15,20,66,.35))}
+.reel-cursor svg{width:100%;height:100%;fill:#0F1442;stroke:#fff;stroke-width:1.6;stroke-linejoin:round}
+.reel-cursor.on{opacity:1}
+.reel-cursor::after{content:"";position:absolute;left:-9px;top:-9px;width:22px;height:22px;border-radius:50%;background:rgba(9,176,238,.5);transform:scale(0);opacity:0}
+.reel-cursor.click::after{animation:reelClick .6s ease-out}
+@keyframes reelClick{0%{transform:scale(.2);opacity:1}100%{transform:scale(2.4);opacity:0}}
+.reel-cap{position:absolute;left:12px;bottom:12px;z-index:4;max-width:calc(100% - 24px);background:rgba(15,20,66,.92);color:#fff;font-weight:700;font-size:13px;line-height:1.35;padding:8px 12px;border-radius:12px;opacity:0;transform:translateY(6px);transition:.35s var(--ease);backdrop-filter:blur(6px)}
+.reel-cap.on{opacity:1;transform:none}
+.reel-badge{position:absolute;right:10px;top:10px;z-index:4;background:rgba(255,255,255,.94);border:1px solid var(--line);color:var(--ink-2);font-size:10.5px;font-weight:800;padding:4px 9px;border-radius:99px;letter-spacing:.02em}
+.reel-host{position:absolute;inset:0}
+/* A strip only shows once its screenshot exists; never let a display rule override that */
+[data-reel-wrap][hidden]{display:none!important}
+
+/* ---------- Hero: real dashboard + floating live-flow card */
+.dash-reel{display:none}
+.hero-vis.real .dash{overflow:visible}
+.hero-vis.real .dash-bar{border-radius:24px 24px 0 0}
+.hero-vis.real .dash-reel{display:block;aspect-ratio:16/10.4;border-radius:0 0 24px 24px}
+.hero-vis.real .dash-body{position:absolute;left:-34px;bottom:-34px;width:min(300px,62%);background:#fff;border:1px solid var(--line);border-radius:18px;
+  box-shadow:0 30px 60px -24px rgba(15,20,66,.45);padding:12px;gap:8px;z-index:5}
+.hero-vis.real .dash-top,.hero-vis.real .dash-stats,.hero-vis.real .dash-ai{display:none}
+.hero-vis.real .flow{gap:6px}
+.hero-vis.real .flow li{padding:7px 9px;gap:9px;border-radius:12px}
+.hero-vis.real .flow li .fi{width:28px;height:28px;font-size:14px;border-radius:9px}
+.hero-vis.real .flow li b{font-size:13px}
+.hero-vis.real .flow li small{font-size:11.5px;max-width:170px}
+.hero-vis.real .flow li .ok{width:18px;height:18px;font-size:9px}
+.hero-vis.real .flow li.now{transform:translateX(3px)}
+.hero-vis.real .fc2{left:auto;right:-16px;top:auto;bottom:38%}
+.hero-vis.real .fc3{display:none}
+@media (max-width:960px){.hero-vis.real{padding:12px 0 70px}.hero-vis.real .dash-body{left:8px;bottom:0;width:min(290px,80%)}}
+
+/* ---------- Journey: real screens + a live fact chip */
+.screen.real{padding:0;display:block;position:relative;min-height:440px}
+.j-reel{position:absolute;inset:0}
+.j-fact{position:absolute;left:12px;top:12px;z-index:5;display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:calc(100% - 24px);
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 12px;font-size:13px;box-shadow:0 16px 30px -16px rgba(15,20,66,.4)}
+.j-fact s{color:var(--ink-3)}
+.j-fact.pop{animation:pop .45s .25s both}
+@media (max-width:640px){.j-reel .reel-badge{display:none}}  /* the fact chip takes that corner on phones */
+@media (max-width:520px){.screen.real{min-height:320px}}
+
+/* ---------- "This is the real thing" strips */
+.rs-badge{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;color:var(--navy);background:#fff;border:1px solid var(--line);padding:6px 12px;border-radius:99px}
+.rs-badge i{width:8px;height:8px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(20,184,134,.18)}
+.rs-badge.dark{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#fff}
+.real-strip{margin-top:56px}
+.rs-head{text-align:center;display:grid;gap:10px;justify-items:center;margin-bottom:22px}
+.rs-head h3{font-size:clamp(22px,2.6vw,30px)}
+.rs-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.rs-frame{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)}
+.rs-frame[hidden]{display:none}
+.rs-reel{position:relative;aspect-ratio:16/10.4}
+.hub-real{margin:30px auto 0;max-width:880px;display:grid;gap:14px;justify-items:center}
+.hub-real .rs-frame{width:100%;border-color:rgba(255,255,255,.14);box-shadow:0 40px 90px -40px rgba(0,0,0,.8)}
+@media (max-width:860px){.rs-grid{grid-template-columns:1fr}}
+
+/* ---------- Hub: real partner logos */
+.node.word{background:#fff;border-color:rgba(255,255,255,.6);padding:7px 12px;color:var(--ink)}
+.node.word:hover,.node.word.on{background:#fff;border-color:var(--sky)}
+.node .lg-word{height:22px;width:auto;max-width:112px;object-fit:contain;display:block}
+.node i.lg-ic,.hub-detail i.lg-ic{background:#fff;padding:3px}
+.lg-ic img{width:100%;height:100%;object-fit:contain}
+.hd-logo{width:auto!important;min-width:46px;padding:0 12px;background:#fff!important}
+.hd-logo img{height:26px;width:auto;max-width:130px;object-fit:contain;display:block}
+@media (max-width:720px){.node.word{justify-content:center}}
+
+/* ---------- Theme gallery: real storefronts */
+.tpl-head{text-align:center;margin:64px 0 20px;display:grid;gap:6px}
+.tpl-head h3{font-size:22px}
+.tpl-head p{font-size:15px}
+.tpl{position:relative;cursor:zoom-in}
+.tpl-shot{display:block;position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--soft);border:1px solid var(--line)}
+.tpl-shot img{display:block;width:100%;height:auto;min-height:100%;object-fit:cover;object-position:top;transform:translateY(0);transition:transform var(--dur,4s) cubic-bezier(.45,.05,.55,.95)}
+.tpl:hover .tpl-shot img,.tpl:focus-visible .tpl-shot img{transform:translateY(var(--scroll,0))}
+.tpl em{position:absolute;right:20px;top:20px;font-style:normal;font-size:12px;font-weight:800;background:rgba(15,20,66,.85);color:#fff;padding:5px 10px;border-radius:99px;opacity:0;transform:translateY(-4px);transition:.25s}
+.tpl:hover em,.tpl:focus-visible em{opacity:1;transform:none}
+
+/* ---------- Lightbox (shares the video modal) */
+.modal.lightbox .modal-box{width:min(1100px,100%)}
+.modal.lightbox .modal-frame{aspect-ratio:auto;height:min(82vh,900px);background:#fff}
+.lb-scroll{height:100%;overflow-y:auto;overscroll-behavior:contain}
+.lb-scroll img{display:block;width:100%;height:auto}

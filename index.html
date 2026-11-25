@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- When served at /bn/, resolve assets from the site root (see README: Routing) -->
+<script>(function(){var m=location.pathname.match(/^(.*\/)bn(\/(index\.html)?)?$/);if(m)document.write('<base href="'+m[1]+'">');})();</script>
+<title>FullStro: Run every channel from one AI-powered dashboard</title>
+<meta name="description" content="Sync inventory, orders, payments, shipping and customer chats across every channel you sell on. Build your store with AI. Start your free trial.">
+<!-- Optional: an edge/server can inject the visitor's country here, e.g. <meta name="fs-country" content="BD"> -->
+<link rel="alternate" hreflang="en" href="https://fullstro.com/">
+<link rel="alternate" hreflang="bn" href="https://fullstro.com/bn/">
+<link rel="alternate" hreflang="x-default" href="https://fullstro.com/">
+<meta property="og:title" content="FullStro: Sell everywhere. Run it all from one place.">
+<meta property="og:description" content="Inventory, orders, payments, shipping, chat and an AI store builder, in one place.">
+<meta name="theme-color" content="#0F1442">
+<link rel="icon" href="assets/img/fullstro_icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/css/real.css">
+<link rel="stylesheet" href="assets/css/builder.css">
+</head>
+<body>
+<a class="skip" href="#main" data-i18n="common.skip">Skip to content</a>
+
+<!-- FullStro cube icon (same paths as assets/img/fullstro_icon.svg), reused as Stro's avatar.
+     Faces: --m1 right (sky), --m2 top-left (navy), --m3 bottom (blue); override all three for a mono version. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="mark" viewBox="0 0 218 233">
+    <path d="M170.5 25.7Q176.0 15.0 183.1 24.6L205.9 55.4Q213.0 65.0 213.3 77.0L214.7 131.0Q215.0 143.0 208.4 153.0L187.6 185.0Q181.0 195.0 174.5 184.9L153.5 152.1Q147.0 142.0 146.8 130.0L146.2 85.0Q146.0 73.0 151.5 62.3Z" fill="var(--m1,#0BB0EE)"/>
+    <path d="M28.6 19.6Q32.0 6.0 46.0 5.6L132.0 3.4Q146.0 3.0 141.8 16.3L115.2 99.7Q111.0 113.0 97.1 114.3L16.9 121.7Q3.0 123.0 6.4 109.4Z" fill="var(--m2,#2E3192)"/>
+    <path d="M22.7 161.3Q16.0 149.0 29.9 147.5L102.1 139.5Q116.0 138.0 122.8 150.2L153.2 204.8Q160.0 217.0 146.1 218.8L73.9 228.2Q60.0 230.0 53.3 217.7Z" fill="var(--m3,#1C75BC)"/>
+  </symbol>
+</svg>
+
+<!-- ============================== NAV ============================== -->
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="logo" aria-label="FullStro"><img src="assets/img/fullstro_logo.svg" alt="FullStro" width="132" height="34"></a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="#journey" data-i18n="nav.product"></a>
+      <a href="#agent" data-i18n="nav.agent"></a>
+      <a href="#hub" data-i18n="nav.integrations"></a>
+      <a href="#builder" data-i18n="nav.ai"></a>
+      <a href="#pricing" data-i18n="nav.pricing"></a>
+    </nav>
+    <div class="nav-right">
+      <div class="locale" id="locale">
+        <button class="locale-btn" id="localeBtn" aria-haspopup="true" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          <span id="localeLabel">EN · $</span>
+        </button>
+        <div class="locale-pop" id="localePop" role="dialog" aria-label="Language and region">
+          <span class="lp-h" data-i18n="nav.language"></span>
+          <div class="seg" id="langSeg"></div>
+          <span class="lp-h" data-i18n="nav.region"></span>
+          <div class="seg" id="regionSeg"></div>
+          <p class="lp-hint" data-i18n="nav.regionHint"></p>
+        </div>
+      </div>
+      <a class="nav-login" data-link="login" data-i18n="nav.login"></a>
+      <a class="btn btn-primary btn-sm nav-cta" href="#pricing" data-i18n="nav.trial"></a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============================== 1. HERO ============================== -->
+<section class="hero" id="top">
+  <div class="hero-bg" id="heroBg" aria-hidden="true">
+    <video id="heroVideo" muted loop playsinline disablepictureinpicture disableremoteplayback preload="none" tabindex="-1"></video>
+  </div>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <div class="hero-tags">
+        <span class="ai-pill"><span class="spark" aria-hidden="true">✦</span> <span data-i18n="hero.ai"></span></span>
+        <span class="eyebrow-plain" data-i18n="hero.eyebrow"></span>
+      </div>
+      <h1 data-i18n="hero.title">Sell everywhere.<br>Run it all from one place.</h1>
+      <p class="lead" data-i18n="hero.sub"></p>
+      <div class="ctas">
+        <a class="btn btn-primary btn-lg" href="#pricing"><span data-i18n="hero.ctaTrial"></span> <span aria-hidden="true">→</span></a>
+      </div>
+      <ul class="trust" id="trust"></ul>
+    </div>
+
+    <div class="hero-vis" aria-hidden="true">
+      <div class="glow"></div>
+      <div class="dash" id="heroDash">
+        <div class="dash-bar"><i></i><i></i><i></i><span class="dash-url" data-i18n="hero.dash.url"></span></div>
+        <div class="dash-reel" id="heroReel"></div>
+        <div class="dash-body">
+          <div class="dash-top"><b data-i18n="hero.dash.title"></b><span class="live"><i></i><span data-i18n="hero.dash.live"></span></span></div>
+          <div class="dash-stats">
+            <div><span data-i18n="hero.dash.sales"></span><b id="hdSales"></b></div>
+            <div><span data-i18n="hero.dash.orders"></span><b id="hdOrders"></b></div>
+            <div><span data-i18n="hero.dash.synced"></span><b id="hdSynced">3/3</b></div>
+          </div>
+          <ol class="flow" id="hdFlow"></ol>
+          <div class="dash-ai"><span class="ai-dot">✦</span><span data-i18n="hero.dash.ai"></span></div>
+        </div>
+      </div>
+      <div class="float-card fc1" id="hdToast"></div>
+      <div class="float-chip fc2"><span class="ch-dot" style="background:#1877F2"></span><span id="hdChan"></span></div>
+      <div class="float-chip fc3"><span class="ch-dot" style="background:#14B886"></span><span id="hdCourier"></span></div>
+    </div>
+  </div>
+
+  <!-- Why FullStro exists: a merchant ↔ Stro conversation. Plays once when scrolled into view;
+       the visitor steers it with the topic chips. Each answer lights up one part of the goal. -->
+  <div class="wrap" id="goal">
+    <div class="goal-card reveal">
+      <div class="goal-copy">
+        <span class="eyebrow"><i></i><span data-i18n="goal.eyebrow"></span></span>
+        <h2 data-i18n="goal.title"></h2>
+        <p data-i18n="goal.sub"></p>
+        <ul class="goal-list" id="goalList"></ul>
+        <p class="goal-done" id="goalDone" data-i18n="goal.done"></p>
+      </div>
+      <div class="goal-chat">
+        <div class="goal-head">
+          <div class="ava"><svg><use href="#mark"/></svg></div>
+          <div class="goal-id"><b data-i18n="goal.name"></b><span data-i18n="goal.status"></span></div>
+          <button class="icon-btn" id="goalReplay" type="button" data-i18n-attr="aria-label:goal.replay;title:goal.replay">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
+          </button>
+        </div>
+        <div class="goal-msgs" id="goalMsgs" role="log" aria-live="polite"></div>
+        <div class="quick goal-quick" id="goalQuick"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 2. PROBLEM → SOLUTION ============================== -->
+<section id="story">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="story.eyebrow"></span></span>
+      <h2 data-i18n="story.title"></h2>
+      <p data-i18n="story.sub"></p>
+    </div>
+    <div class="compare reveal" id="compare" style="--pos:50%">
+      <div class="cmp-pane cmp-before">
+        <span class="cmp-label bad" data-i18n="story.before"></span>
+        <div class="chaos" id="chaos"></div>
+      </div>
+      <div class="cmp-pane cmp-after">
+        <span class="cmp-label good" data-i18n="story.after"></span>
+        <div class="calm">
+          <div class="calm-head"><svg class="calm-mark"><use href="#mark"/></svg><b data-i18n="story.afterTitle"></b></div>
+          <ul id="calmList"></ul>
+        </div>
+      </div>
+      <div class="cmp-handle" aria-hidden="true"><span>⟷</span></div>
+      <input class="cmp-range" id="cmpRange" type="range" min="0" max="100" value="50" aria-label="Compare">
+    </div>
+    <div class="metrics reveal" id="metrics"></div>
+    <p class="note-center"><small data-i18n="common.illustrative"></small></p>
+    <div class="center"><a class="text-cta" href="#agent" data-i18n="story.cta"></a></div>
+  </div>
+</section>
+
+<!-- ============================== 3. AI AGENT OVERVIEW ============================== -->
+<section id="agent" class="agent-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="agent.eyebrow"></span></span>
+      <h2 data-i18n="agent.title"></h2>
+      <p data-i18n="agent.sub"></p>
+    </div>
+    <div class="agent reveal">
+      <div class="chat" id="chat">
+        <div class="chat-head">
+          <div class="ava"><svg><use href="#mark"/></svg></div>
+          <div class="chat-id"><b data-i18n="agent.name"></b><span data-i18n="agent.status"></span></div>
+          <button class="icon-btn" id="chatReset" title="Reset" aria-label="Reset"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></button>
+        </div>
+        <div class="msgs" id="msgs" aria-live="polite"></div>
+        <div class="quick" id="quick"></div>
+        <form class="composer" id="composer" autocomplete="off">
+          <input id="chatInput" data-i18n-attr="placeholder:agent.placeholder" aria-label="Message Stro" maxlength="160">
+          <button class="send" aria-label="Send"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        </form>
+      </div>
+      <div class="board">
+        <div class="setup" id="setup">
+          <span class="setup-h" data-i18n="agent.yourSetup"></span>
+          <div class="setup-flow"><div class="setup-in" id="setupIn"></div><span class="setup-arrow">→</span><span class="setup-hub"><svg style="--m1:#fff;--m2:#DDE3FF;--m3:#AEBBFF"><use href="#mark"/></svg><span data-i18n="agent.hub"></span></span></div>
+        </div>
+        <div class="modules" id="modules"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 4. ORDER JOURNEY ============================== -->
+<section id="journey" class="journey-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="journey.eyebrow"></span></span>
+      <h2 data-i18n="journey.title"></h2>
+      <p data-i18n="journey.sub"></p>
+    </div>
+    <div class="journey reveal" id="journeyBox">
+      <ol class="rail" id="rail" role="tablist"></ol>
+      <div class="stage">
+        <div class="stage-copy" id="stageCopy" aria-live="polite"></div>
+        <div class="stage-screen">
+          <div class="screen-bar"><span class="order-tag">#1042 · <span data-i18n="journey.product"></span></span><span class="auto" id="autoState"></span></div>
+          <div class="screen" id="screen"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 5. INTEGRATIONS HUB ============================== -->
+<section id="hub" class="dark-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="hub.eyebrow"></span></span>
+      <h2 data-i18n="hub.title"></h2>
+      <p data-i18n="hub.sub"></p>
+      <div class="tabs" id="hubTabs" role="tablist"></div>
+    </div>
+    <div class="hub-wrap reveal">
+      <div class="hub" id="hubMap">
+        <svg class="hub-lines" id="hubLines" viewBox="0 0 1000 620" preserveAspectRatio="none" aria-hidden="true"></svg>
+        <div class="hub-core"><svg style="--m1:#fff;--m2:#C9D0FF;--m3:#9DACFF"><use href="#mark"/></svg><b>FullStro</b><span class="pulse-ring"></span></div>
+        <div id="hubNodes"></div>
+      </div>
+      <aside class="hub-detail" id="hubDetail" aria-live="polite"></aside>
+    </div>
+    <div class="hub-real reveal" data-reel-wrap hidden>
+      <span class="rs-badge dark"><i></i><span data-i18n="reel.hubTitle"></span></span>
+      <div class="rs-frame"><div class="dash-bar"><i></i><i></i><i></i><span class="dash-url">app.fullstro.com/add-ons</span></div><div class="rs-reel" data-reel="addons:grid"></div></div>
+    </div>
+    <div class="center"><a class="btn btn-light" data-link="integrations"><span data-i18n="hub.cta"></span> →</a></div>
+  </div>
+</section>
+
+<!-- ============================== 6. AI STORE BUILDER ============================== -->
+<section id="builder" class="builder-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="ai-pill"><span class="spark" aria-hidden="true">✦</span> <span data-i18n="builder.label"></span></span>
+      <h2 data-i18n="builder.title"></h2>
+      <p data-i18n="builder.sub"></p>
+    </div>
+    <!-- Theme Builder replica: built by assets/js/builder.js -->
+    <div class="tbx reveal" id="tbx"></div>
+    <div class="real-strip reveal" data-reel-wrap hidden>
+      <div class="rs-head"><span class="rs-badge"><i></i><span data-i18n="reel.badge"></span></span><h3 data-i18n="reel.builderTitle"></h3><p data-i18n="reel.builderSub"></p></div>
+      <div class="rs-grid">
+        <div class="rs-frame" data-reel-wrap hidden><div class="dash-bar"><i></i><i></i><i></i><span class="dash-url">app.fullstro.com/products/create</span></div><div class="rs-reel" data-reel="product-ai:aiButton,description"></div></div>
+        <div class="rs-frame" data-reel-wrap hidden><div class="dash-bar"><i></i><i></i><i></i><span class="dash-url">app.fullstro.com/storefront/theme-builder</span></div><div class="rs-reel" data-reel="theme-builder:sections,preview"></div></div>
+      </div>
+    </div>
+    <div class="tpl-head reveal"><h3 data-i18n="builder.templatesTitle"></h3><p data-i18n="builder.templatesSub"></p></div>
+    <div class="templates reveal" id="templates"></div>
+    <div class="center ctas-center">
+      <a class="btn btn-primary" data-link="trial"><span class="spark">✦</span> <span data-i18n="builder.ctaTry"></span></a>
+      <a class="btn btn-ghost" data-link="templates" data-i18n="builder.ctaThemes"></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 7. MESSAGING INBOX ============================== -->
+<section id="inbox" class="dark-sec inbox-sec">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="inbox.eyebrow"></span><em class="status-pill" id="inboxStatus"></em></span>
+      <h2 data-i18n="inbox.title"></h2>
+      <p data-i18n="inbox.sub"></p>
+    </div>
+    <div class="inbox reveal" id="inboxApp">
+      <aside class="ib-list">
+        <div class="ib-filter" id="ibFilter"></div>
+        <ul id="ibThreads"></ul>
+      </aside>
+      <div class="ib-thread">
+        <div class="ib-head" id="ibHead"></div>
+        <div class="ib-msgs" id="ibMsgs" aria-live="polite"></div>
+        <div class="ib-actions" id="ibActions"></div>
+        <div class="ib-composer"><span id="ibComposer"></span><span class="ib-send">➤</span></div>
+      </div>
+    </div>
+    <div class="benefits reveal" id="benefits"></div>
+    <div class="center ctas-center">
+      <a class="btn btn-primary btn-lg" href="#pricing" data-i18n="inbox.cta"></a>
+      <p class="cta-sub" data-i18n="inbox.ctaSub"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================== 8. EXISTING CONTENT, POLISHED ============================== -->
+<section id="proof">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="proof.eyebrow"></span></span>
+      <h2 data-i18n="proof.title"></h2>
+    </div>
+    <div class="love-track" id="loveTrack"></div>
+    <div class="love-nav"><button id="lPrev" data-i18n-attr="aria-label:proof.prev">←</button><button id="lNext" data-i18n-attr="aria-label:proof.next">→</button></div>
+  </div>
+</section>
+
+<section id="roi">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="roi.eyebrow"></span></span>
+      <h2 data-i18n="roi.title"></h2>
+      <p data-i18n="roi.sub"></p>
+    </div>
+    <div class="roi reveal">
+      <div class="roi-in">
+        <div class="field"><label for="rOrders"><span data-i18n="roi.orders"></span> <output id="oOut"></output></label><input type="range" id="rOrders" min="5" max="400" step="5" value="40"></div>
+        <div class="field"><label for="rHours"><span data-i18n="roi.hours"></span> <output id="hOut"></output></label><input type="range" id="rHours" min="0.5" max="10" step="0.5" value="3"></div>
+        <div class="field"><label for="rTools"><span data-i18n="roi.tools"></span> <output id="tOut"></output></label><input type="range" id="rTools"></div>
+        <p class="small" data-i18n="roi.toolsHint"></p>
+      </div>
+      <div class="roi-out">
+        <span class="roi-k" data-i18n="roi.youGet"></span>
+        <div class="big" id="roiHours"></div>
+        <p id="roiDays"></p>
+        <div class="roi-row">
+          <div><b id="roiTools"></b><span data-i18n="roi.dropTools"></span></div>
+          <div><b id="roiPlan"></b><span id="roiPlanSub"></span></div>
+        </div>
+        <a class="btn btn-white" href="#pricing" data-i18n="roi.cta"></a>
+        <p class="fine" data-i18n="roi.fine"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="pricing.eyebrow"></span></span>
+      <h2 data-i18n="pricing.title"></h2>
+      <p id="priceSub"></p>
+      <div class="dur" id="dur"></div>
+    </div>
+    <div class="plans" id="plans"></div>
+    <p class="region-note" id="regionNote"></p>
+    <div class="all-plans" data-i18n="pricing.includes"></div>
+    <div class="price-foot" id="priceFoot"></div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow"><i></i><span data-i18n="faq.eyebrow"></span></span>
+      <h2 data-i18n="faq.title"></h2>
+      <p data-i18n="faq.sub"></p>
+    </div>
+    <div class="faq" id="faqList"></div>
+  </div>
+</section>
+
+<section class="final" id="contact">
+  <div class="wrap">
+    <div class="final-box reveal">
+      <div class="final-copy">
+        <h2 data-i18n="final.title"></h2>
+        <p data-i18n="final.sub"></p>
+        <div class="ctas">
+          <a class="btn btn-white btn-lg" href="#pricing"><span data-i18n="final.trial"></span> →</a>
+          <a class="btn btn-glass btn-lg" data-link="contact" data-i18n="final.contact"></a>
+        </div>
+      </div>
+      <div class="contact-list" id="contactList"></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <img src="assets/img/fullstro_logo.svg" alt="FullStro" width="132" height="34">
+        <p data-i18n="footer.blurb"></p>
+        <div class="social" id="social"></div>
+      </div>
+      <div><h4 data-i18n="footer.company"></h4><ul>
+        <li><a href="#top" data-i18n="footer.links.home"></a></li>
+        <li><a href="#pricing" data-i18n="footer.links.pricing"></a></li>
+        <li><a data-link="contact" data-i18n="footer.links.contact"></a></li>
+        <li><a data-link="docs" data-i18n="footer.links.docs"></a></li></ul></div>
+      <div><h4 data-i18n="footer.resources"></h4><ul>
+        <li><a data-link="roadmap" data-i18n="footer.links.roadmap"></a></li>
+        <li><a data-link="features" data-i18n="footer.links.features"></a></li>
+        <li><a data-link="integrations" data-i18n="footer.links.integrations"></a></li>
+        <li><a data-link="templates" data-i18n="footer.links.templates"></a></li></ul></div>
+      <div><h4 data-i18n="footer.legal"></h4><ul>
+        <li><a data-link="terms" data-i18n="footer.links.terms"></a></li>
+        <li><a data-link="privacy" data-i18n="footer.links.privacy"></a></li>
+        <li><a data-link="cancellation" data-i18n="footer.links.cancellation"></a></li>
+        <li><a data-link="refund" data-i18n="footer.links.refund"></a></li></ul></div>
+    </div>
+    <div class="legal"><span id="rights"></span><span data-i18n="footer.trade"></span></div>
+  </div>
+</footer>
+
+<!-- Floating Stro: speaks once per section -->
+<div class="dock" id="dock">
+  <button class="dock-btn" id="dockBtn" aria-label="Stro"><svg style="--m1:#fff;--m2:#DDE3FF;--m3:#AEBBFF"><use href="#mark"/></svg><i class="dot"></i></button>
+  <div class="tip" id="tip" role="status"><button class="x" id="tipX" aria-label="Dismiss">×</button><span id="tipText"></span></div>
+</div>
+
+<!-- Modal (screenshot lightbox) -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-box"><button class="modal-x" id="modalX" data-i18n-attr="aria-label:common.close">✕</button><div class="modal-frame" id="modalFrame"></div></div>
+</div>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/i18n/en.js"></script>
+<script src="assets/js/i18n/bn.js"></script>
+<script src="assets/js/locale.js"></script>
+<script src="assets/js/app.js"></script>
+<script src="assets/js/builder.js"></script>
+</body>
+</html>

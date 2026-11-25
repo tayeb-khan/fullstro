@@ -1,0 +1,533 @@
+Access Tenant
+Account Settings
+Activate Domain
+Active Plan
+Activity Log
+Activity Log Delete
+Activity Log Report
+Add Account
+Add Account Transfer History
+Add Affiliate User
+Add API Key
+Add Attribute
+Add Attribute Items
+Add Badge
+Add Blog
+Add Blog Category
+Add Brands
+Add Campaign
+Add Categories
+Add city
+Add Country
+Add Customer
+Add Deposit
+Add Expense
+Add Expense Category
+Add Group Customer
+Add Language
+Add Manufacturers
+Add Measurement Units
+Addon
+Addon History
+Add-on Integration
+Add Page
+Add Plan
+Add Plan Type
+Add Policies
+Add Product
+Add Product Variant Price Range
+Add Promo Code
+Add Purchase
+Add Review
+Add Role
+Add State
+Add Supplier
+Add Tags
+Add Tenant
+Add User
+Add Warehouse
+Add Weight Units
+Affiliate Setting
+Affiliate User
+AI Credential
+AI Credit Setting
+AI Provider
+AI Settings
+AI Usage
+All Shipment Report
+All Supplier Report
+Approve Affiliate User
+Auth Failed Job
+Auth Failed Job Details
+Auth Failed Job Retry
+Badge
+Cancel Invoice
+Cancelled Invoices
+Cancel Plan History
+Cancel Purchase
+Confirm as a Customer
+Connect Add-on
+Country
+Coupon
+Coupon Apply History
+Create AI Provider
+Create Credit Package
+Create Custom Invoice
+Create Email Campaign
+Create Email Template
+Create Invoice
+Create Invoice Payment
+Create Landing Page Design
+Create Partner
+Create Reseller
+Create Theme
+Create Theme AI Prompt
+Credit Package
+Currency Setting
+Current Plan
+Dashboard
+Deactivate Domain
+Delete Account
+Delete Account Transfer History
+Delete Activity Log
+Delete Affiliate User
+Delete AI Provider
+Delete API Key
+Delete Attribute
+Delete Attribute Items
+Delete Badge
+Delete Blog
+Delete Blog Category
+Delete Brands
+Delete Campaign
+Delete Categories
+Delete city
+Delete Country
+Delete Coupon
+Delete Credit Package
+Delete Customer
+Delete Custom Invoice
+Delete Deposit
+Delete Domain
+Delete Email Campaign
+Delete Email Template
+Delete Expense
+Delete Expense Category
+Delete Group Customer
+Delete Invoice
+Delete Landing Page Design
+Delete Language
+Delete Manufacturers
+Delete Measurement Units
+Delete Media
+Delete Notification
+Delete Page
+Delete Partner
+Delete Plan
+Delete Plan Type
+Delete Policies
+Delete Product
+Delete Promo Code
+Delete Purchase
+Delete Purchase Receive
+Delete Purchase Return
+Delete Reseller
+Delete Review
+Delete Role
+Delete State
+Delete Supplier
+Delete Theme
+Delete Theme AI Prompt
+Delete User
+Delete Walk in Customer
+Delete Warehouse
+Delete Weight Units
+Delivered Invoice
+Details Addon History
+Details Plan History
+Disable Tenant
+Disconnect Add-on
+Download Barcodes
+Download CSV
+Download Excel
+Download Pdf
+Edit Account
+Edit Account Transfer History
+Edit Affiliate User
+Edit AI Credit Setting
+Edit AI Provider
+Edit API Key
+Edit Attribute
+Edit Attribute Items
+Edit Badge
+Edit Blog
+Edit Blog Category
+Edit Brands
+Edit Campaign
+Edit Categories
+Edit city
+Edit Country
+Edit Credit Package
+Edit Customer
+Edit Custom Invoice
+Edit Deposit
+Edit Domain
+Edit Email Template
+Edit Expense
+Edit Expense Category
+Edit Group Customer
+Edit Invoice
+Edit Landing Page Design
+Edit Language
+Edit Manufacturers
+Edit Measurement Units
+Edit Media
+Edit Page
+Edit Partner
+Edit Plan
+Edit Plan Type
+Edit Policies
+Edit Premium Feature
+Edit Product
+Edit Promo Code
+Edit Purchase
+Edit Reseller
+Edit Review
+Edit Role
+Edit State
+Edit Supplier
+Edit Tenant
+Edit Theme
+Edit Theme AI Prompt
+Edit User
+Edit Walk in Customer
+Edit Warehouse
+Edit Weight Units
+Email
+Email Campaign
+Email Notification Settings
+Email Setting
+Email Template
+Exchange Invoice
+Expense Report
+Expiring Soon Tenants
+Export Custom Invoice
+Export Invoice
+Export Product
+Export Purchase
+Export Supplier
+Export Tenants
+Export Warehouse
+First Promoter Fetch
+floating_buttons
+Force Delete Account
+Force Delete Account Transfer History
+Force Delete Attribute
+Force Delete Attribute Items
+Force Delete Blog
+Force Delete Blog Category
+Force Delete Brands
+Force Delete Categories
+Force Delete Customer
+Force Delete Deposit
+Force Delete Expense
+Force Delete Expense Category
+Force Delete Manufacturers
+Force Delete Measurement Units
+Force Delete Page
+Force Delete Plan
+Force Delete Product
+Force Delete Supplier
+Force Delete User
+Force Delete Warehouse
+Force Delete Weight Units
+Formatting
+General Setting
+Generate Coupon
+Import and Export Resource
+Import Product
+Invoice Settings
+Landing Page Design
+Language
+Latest Tenants With Current Plan
+List Account
+List Account Transfer History
+List Activity Log
+List Addon
+List Addon History
+List Affiliate User
+List AI Credential
+List AI Key
+List AI Provider
+List AI Usage
+List API Key
+List Attribute
+List Attribute Items
+List Badge
+List Blog
+List Blog Category
+List Brands
+List Campaign
+List Categories
+List city
+List Country
+List Coupon
+List Credit Package
+List Customer
+List Custom Invoice
+List Custom Invoice Payments
+List Deposit
+List Domain
+List Email Campaign
+List Email History
+List Email Template
+List Expense
+List Expense Category
+List Group Customer
+List Invoice
+List Invoice Payments
+List Landing Page Design
+List Language
+List Manufacturers
+List Measurement Units
+List Media
+List Page
+List Partners
+List Plan
+List Plan History
+List Plan Type
+List Premium Feature
+List Product
+List Product Variant Price Range
+List Promo Code
+List Purchase
+List Purchase Receive
+List Purchase Return
+List Reseller
+List Review
+List Role
+List State
+List Supplier
+List Tenant
+List Tenant Data Reset
+List Theme
+List Theme AI Prompt
+List User
+List Walk in Customer
+List Warehouse
+List Weight Units
+Low Stock Product
+Loyalty Program
+Make Purchase Payment
+Manage AI Credential
+Manage AI Key
+Manage Partner Category
+Manage Partner Coupons
+Manage Partner Request
+Miscellaneous
+Monitoring
+Partner Management
+Partner Overview
+Payment Gateway Setting
+Payment Gateway Settings
+Payment Method Setting
+Payment Report
+Permanent Delete Purchase
+Permanent Delete Tenant
+Plan
+Plan History
+Plan History Details
+Plan History List
+Plan Purchase Setting
+Plan Report
+Plan Trial
+Plan Types
+Premium Feature
+Print Barcode Label
+Product Failed Job
+Product Failed Job Details
+Product Failed Job Retry
+Product Sales Report
+Profit & Loss
+Promotion Setting
+Purchase Add-on
+Purchase Payment History
+Purchases Report
+Pusher Config Setting
+Receive Purchase
+Reseller Management
+Reseller Payment History
+Reseller Reports
+Restore Account
+Restore Account Transfer History
+Restore Attribute
+Restore Attribute Items
+Restore Blog
+Restore Blog Category
+Restore Brands
+Restore Cancelled Invoices
+Restore Cancel Purchase
+Restore Categories
+Restore Customer
+Restore Deposit
+Restore Expense
+Restore Expense Category
+Restore Manufacturers
+Restore Measurement Units
+Restore Page
+Restore Plan
+Restore Product
+Restore Purchase
+Restore Supplier
+Restore Tenant
+Restore User
+Restore Warehouse
+Restore Weight Units
+Return Invoice
+Roles
+Run Tenant Data Reset
+Sale Return Report
+Sales Report
+Seen Notification
+Send Email Campaign
+Send Forgot Password Email
+Setting
+Shipment Report
+Show Account
+Show Account Transfer History
+Show AI Credit Setting
+Show Badge
+Show Blog
+Show Campaign
+Show Customer
+Show Custom Invoice
+Show Deposit
+Show Details Purchase Receive
+Show Details Purchase Return
+Show Expense
+Show Expense Report
+Show Group Customer
+Show Invoice
+Show Last Month Overview
+Show Last Week Overview
+Show Latest Invoice
+Show Latest Product
+Show Listing
+Show Low Stock Products
+Show Low Stocks
+Show Month to Date Overview
+Show Notification
+Show Order Status Report
+Show Page
+Show Pending Shipments
+Show Plan
+Show Product
+Show Promo Code
+Show Purchase
+Show Purchasing Overview
+Show Review
+Show Sale Report
+Show Sales Payment Due
+Show Store Overview
+Show Supplier
+Show This Month Overview
+Show This Week Overview
+Show Today Overview
+Show Top Sale Product
+Show Total Brands
+Show Total Categories
+Show Total Customers
+Show Total Expenses
+Show Total Incomes
+Show Total Products
+Show Total Product Variants
+Show Total Sales
+Show Total Suppliers
+Show Total Warehouses
+Show User
+Show Warehouse
+Show Widget Section
+Show Yesterday Overview
+sliders
+SMS Gateway
+Sms Gateway Setting
+State
+sticky_cta
+Stock Inventory List
+Stockout Settings
+Subscription Report
+Subscriptions Ending
+Supplier Report
+Supplier Return Report
+Sync ECom-Category
+Sync ECom-Invoice
+Sync ECom-Product
+Sync Languages
+Sync Policies
+Tenant By Last Activity
+Tenant Data Reset
+Tenants
+Tenant Tutorials Settings
+Theme
+Theme AI Prompt
+Ticket Create
+Ticket Delete
+Ticket Edit
+Ticket List
+Ticket Management
+Ticket Reply
+Ticket View
+Toggle Badge Status
+Total Tenant
+Total Tickets
+Total User
+Transaction History
+Translations Language
+Trashed Account
+Trashed Account Transfer History
+Trashed Attribute
+Trashed Attribute Items
+Trashed Blog
+Trashed Blog Category
+Trashed Brands
+Trashed Categories
+Trashed Customer
+Trashed Deposit
+Trashed Expense
+Trashed Expense Category
+Trashed Manufacturers
+Trashed Measurement Units
+Trashed Page
+Trashed Plan
+Trashed Policies
+Trashed Product
+Trashed Purchase
+Trashed Supplier
+Trashed User
+Trashed Warehouse
+Trashed Weight Units
+Two-Factor Authentication
+Two-Step Authentication
+Types of Tenant
+Update Addon
+Update Histories
+Update Language Status
+Update Limit
+Update Settings
+Upload Media
+Users
+variant_codes
+Vat and Tax
+Verify Tenant
+video
+View Partner
+View Payment Invoice
+View Reseller
+Warehouse Transfer Create
+Warehouse Transfer Delete
+Warehouse Transfer Edit
+Warehouse Transfer History Details
+Warehouse Transfer History List
+Webhook
+White Label
+World Domination Overview

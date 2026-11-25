@@ -1,0 +1,306 @@
+<!doctype html>
+<!--
+  Hero background video: an e-commerce shipping floor.
+  Parcels ride a conveyor, get a printed label, pass a scan gate (check + "customer notified"),
+  and load into a FullStro van, while deliveries travel a dotted world map above.
+  No text anywhere, so the same video works for every language.
+  Every motion repeats a whole number of times per LOOP seconds, so the video loops seamlessly.
+  draw(t) is deterministic: render.js calls it once per frame.
+  Open this file in a browser to preview it live.
+-->
+<html><head><meta charset="utf-8"><title>Hero video scene</title>
+<style>html,body{margin:0;background:#111}canvas{display:block;max-width:100vw;height:auto}</style></head>
+<body><canvas id="c" width="1920" height="1080"></canvas>
+<script>
+const W = 1920, H = 1080, LOOP = 12, TAU = Math.PI * 2;
+const cv = document.getElementById('c'), g = cv.getContext('2d');
+const C = { ink: '#0F1442', navy: '#2C3591', navy2: '#1F2670', sky: '#09B0EE', violet: '#6B70FF', mint: '#14B886',
+  kraft: '#D9A86C', kraftD: '#BE8A4F', kraftL: '#EAC28F', tape: '#F3D8A8' };
+const fr = x => x - Math.floor(x);
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const ease = k => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+const back = k => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(k - 1, 3) + c1 * Math.pow(k - 1, 2); };
+const rr = (x, y, w, h, r) => { g.beginPath(); g.roundRect(x, y, w, h, r); };
+
+/* FullStro cube icon (same paths as assets/img/fullstro_icon.svg and index.html #mark), viewBox 0 0 218 233 */
+const ICON = [
+  ['#0BB0EE', new Path2D('M170.5 25.7Q176.0 15.0 183.1 24.6L205.9 55.4Q213.0 65.0 213.3 77.0L214.7 131.0Q215.0 143.0 208.4 153.0L187.6 185.0Q181.0 195.0 174.5 184.9L153.5 152.1Q147.0 142.0 146.8 130.0L146.2 85.0Q146.0 73.0 151.5 62.3Z')],
+  ['#2E3192', new Path2D('M28.6 19.6Q32.0 6.0 46.0 5.6L132.0 3.4Q146.0 3.0 141.8 16.3L115.2 99.7Q111.0 113.0 97.1 114.3L16.9 121.7Q3.0 123.0 6.4 109.4Z')],
+  ['#1C75BC', new Path2D('M22.7 161.3Q16.0 149.0 29.9 147.5L102.1 139.5Q116.0 138.0 122.8 150.2L153.2 204.8Q160.0 217.0 146.1 218.8L73.9 228.2Q60.0 230.0 53.3 217.7Z')],
+];
+const ICON_W = 218, ICON_H = 233;
+// Draws the icon w px wide with its centre at (cx, cy).
+function mark(cx, cy, w) {
+  const s = w / ICON_W; g.save(); g.translate(cx - w / 2, cy - ICON_H * s / 2); g.scale(s, s);
+  for (const [fill, path] of ICON) { g.fillStyle = fill; g.fill(path); }
+  g.restore();
+}
+
+/* ---------------------------------------------------------------- world map (dots) */
+const BLOBS = [ // stylised continents: [cx, cy, rx, ry]
+  [330, 175, 200, 95], [430, 285, 115, 75], [240, 120, 120, 55], [520, 360, 50, 40],
+  [585, 470, 78, 120], [545, 395, 70, 55],
+  [935, 160, 115, 60], [880, 220, 60, 40],
+  [990, 390, 118, 150], [945, 300, 112, 58],
+  [1255, 175, 270, 100], [1390, 285, 150, 85], [1150, 290, 85, 60], [1240, 330, 70, 72], [1470, 350, 70, 50],
+  [1600, 500, 115, 70]
+];
+const inside = (x, y) => BLOBS.some(([cx, cy, rx, ry]) => ((x - cx) / rx) ** 2 + ((y - cy) / ry) ** 2 < 1);
+const DOTS = [];
+for (let y = 46; y < 600; y += 24) for (let x = 40 + (y / 24 % 2) * 12; x < 1800; x += 24) if (inside(x, y)) DOTS.push([x, y]);
+const HUB = [1238, 322];
+const CITIES = [[372, 210], [575, 455], [930, 168], [1010, 430], [1435, 205], [1600, 492], [1470, 352], [262, 120]];
+const ROUTES = CITIES.map((p, i) => {
+  const [x1, y1] = HUB, [x2, y2] = p, d = Math.hypot(x2 - x1, y2 - y1);
+  return { a: HUB, b: p, c: [(x1 + x2) / 2, (y1 + y2) / 2 - d * .32], off: i / CITIES.length, k: i % 3 === 0 ? 2 : 1 };
+});
+const qp = (r, k) => { const u = 1 - k; return [u * u * r.a[0] + 2 * u * k * r.c[0] + k * k * r.b[0], u * u * r.a[1] + 2 * u * k * r.c[1] + k * k * r.b[1]]; };
+
+function world(t) {
+  g.fillStyle = 'rgba(44,53,145,.13)';
+  for (const [x, y] of DOTS) { g.beginPath(); g.arc(x, y, 3, 0, TAU); g.fill(); }
+  // routes
+  g.lineWidth = 2.5; g.setLineDash([10, 14]); g.lineDashOffset = -t * 40; // 480px per loop = 20 dash periods
+  for (const r of ROUTES) {
+    g.strokeStyle = 'rgba(9,176,238,.45)';
+    g.beginPath(); g.moveTo(...r.a); g.quadraticCurveTo(...r.c, ...r.b); g.stroke();
+  }
+  g.setLineDash([]);
+  // destination pins pulse
+  CITIES.forEach((p, i) => {
+    const k = fr(t / 2 + i / CITIES.length); // 2 s period
+    g.strokeStyle = `rgba(20,184,134,${.55 * (1 - k)})`; g.lineWidth = 3;
+    g.beginPath(); g.arc(p[0], p[1], 8 + 26 * k, 0, TAU); g.stroke();
+    g.fillStyle = C.mint; g.beginPath(); g.arc(p[0], p[1], 7, 0, TAU); g.fill();
+    g.fillStyle = '#fff'; g.beginPath(); g.arc(p[0], p[1], 3, 0, TAU); g.fill();
+  });
+  // parcels in flight
+  for (const r of ROUTES) {
+    const k = ease(fr(t / LOOP * r.k + r.off));
+    const [x, y] = qp(r, k), fade = Math.min(1, k * 8, (1 - k) * 8);
+    g.globalAlpha = fade;
+    g.fillStyle = 'rgba(9,176,238,.18)'; g.beginPath(); g.arc(x, y, 22, 0, TAU); g.fill();
+    g.fillStyle = '#fff'; g.strokeStyle = C.sky; g.lineWidth = 3; g.beginPath(); g.arc(x, y, 14, 0, TAU); g.fill(); g.stroke();
+    g.fillStyle = C.kraft; g.fillRect(x - 6, y - 5, 12, 10); g.fillStyle = C.tape; g.fillRect(x - 1.5, y - 5, 3, 10);
+    g.globalAlpha = 1;
+  }
+  // hub
+  const k = fr(t / 1.5);
+  g.fillStyle = `rgba(44,53,145,${.18 * (1 - k)})`; g.beginPath(); g.arc(...HUB, 20 + 34 * k, 0, TAU); g.fill();
+  g.fillStyle = '#fff'; g.strokeStyle = C.navy; g.lineWidth = 4; g.beginPath(); g.arc(...HUB, 22, 0, TAU); g.fill(); g.stroke();
+  mark(HUB[0], HUB[1], 26);
+}
+
+/* ---------------------------------------------------------------- far road with traffic */
+const ROAD_Y = 690;
+function van(x, y, s, alpha = 1, bob = 0, flip = false) {
+  g.save(); g.translate(x, y + bob); g.scale(s, s); g.globalAlpha = alpha;
+  if (flip) { g.translate(478, 0); g.scale(-1, 1); }
+  // shadow
+  g.fillStyle = 'rgba(15,20,66,.12)'; g.beginPath(); g.ellipse(230, 345, 250, 16, 0, 0, TAU); g.fill();
+  // cargo body
+  const body = g.createLinearGradient(0, 0, 0, 330); body.addColorStop(0, '#FFFFFF'); body.addColorStop(1, '#EEF1FA');
+  g.fillStyle = body; g.strokeStyle = '#D3DAEC'; g.lineWidth = 3;
+  rr(0, 0, 330, 300, 22); g.fill(); g.stroke();
+  // cab
+  g.beginPath(); g.moveTo(330, 60); g.lineTo(400, 60); g.quadraticCurveTo(430, 62, 445, 100); g.lineTo(470, 170);
+  g.quadraticCurveTo(478, 190, 478, 210); g.lineTo(478, 280); g.quadraticCurveTo(478, 300, 458, 300); g.lineTo(330, 300); g.closePath();
+  g.fill(); g.stroke();
+  // window
+  const win = g.createLinearGradient(350, 80, 460, 180); win.addColorStop(0, '#BFE9FA'); win.addColorStop(1, '#8FD3F2');
+  g.fillStyle = win; g.beginPath(); g.moveTo(350, 82); g.lineTo(398, 82); g.quadraticCurveTo(418, 84, 428, 108); g.lineTo(448, 168); g.lineTo(350, 168); g.closePath(); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.5)'; g.beginPath(); g.moveTo(362, 90); g.lineTo(380, 90); g.lineTo(360, 150); g.lineTo(352, 150); g.closePath(); g.fill();
+  // brand stripe
+  const st = g.createLinearGradient(0, 0, 478, 0); st.addColorStop(0, C.sky); st.addColorStop(1, C.violet);
+  g.fillStyle = st; g.fillRect(0, 214, 478, 20);
+  if (flip) { g.save(); g.translate(230, 0); g.scale(-1, 1); mark(115, 113, 96); g.restore(); } else mark(115, 113, 96); // logo never mirrored
+  // rear door seam + handle
+  g.strokeStyle = '#D3DAEC'; g.lineWidth = 3; g.beginPath(); g.moveTo(18, 20); g.lineTo(18, 290); g.stroke();
+  // lights
+  g.fillStyle = '#FFC857'; rr(462, 236, 16, 22, 5); g.fill();
+  g.fillStyle = '#F26D6D'; rr(-4, 236, 10, 30, 4); g.fill();
+  // wheels
+  for (const wx of [100, 380]) {
+    g.fillStyle = C.ink; g.beginPath(); g.arc(wx, 300, 46, 0, TAU); g.fill();
+    g.fillStyle = '#C9D0E4'; g.beginPath(); g.arc(wx, 300, 20, 0, TAU); g.fill();
+    g.fillStyle = C.ink; g.beginPath(); g.arc(wx, 300, 7, 0, TAU); g.fill();
+  }
+  g.restore();
+}
+function road(t) {
+  g.fillStyle = '#E3E9F7'; g.fillRect(0, ROAD_Y - 6, W, 34);
+  g.strokeStyle = 'rgba(255,255,255,.9)'; g.lineWidth = 3; g.setLineDash([34, 26]); g.lineDashOffset = 0;
+  g.beginPath(); g.moveTo(0, ROAD_Y + 11); g.lineTo(W, ROAD_Y + 11); g.stroke(); g.setLineDash([]);
+  // two small vans drive out, one comes back (1 and 2 crossings per loop)
+  const x1 = fr(t / LOOP) * (W + 400) - 200, x2 = W + 200 - fr(t / LOOP * 2 + .35) * (W + 400);
+  van(x1, ROAD_Y - 118, .36, .55);
+  van(x2, ROAD_Y - 112, .32, .45, 0, true);
+}
+
+/* ---------------------------------------------------------------- warehouse floor + conveyor */
+const BY = 868, BELT_X0 = -60, BELT_X1 = 1370;           // belt top (parcels sit here)
+const PX = 560, SX = 1000;                                 // printer and scan gate x
+const N = 6, SPAN = 1560, V = SPAN / LOOP;                 // 6 parcels, 130 px/s
+const SIZES = [[150, 112], [122, 96], [172, 124], [132, 100], [160, 108], [126, 92]];
+
+function floor() {
+  const f = g.createLinearGradient(0, 760, 0, H); f.addColorStop(0, '#E6ECFA'); f.addColorStop(1, '#DCE4F6');
+  g.fillStyle = f; g.fillRect(0, 760, W, H - 760);
+  g.fillStyle = 'rgba(255,255,255,.7)'; g.fillRect(0, 760, W, 3);
+  // floor lane markings
+  g.fillStyle = 'rgba(245,158,11,.35)';
+  for (let x = 0; x < W; x += 90) g.fillRect(x, 1040, 48, 8);
+}
+function conveyor(t) {
+  // legs
+  g.fillStyle = '#B9C3DD';
+  for (let x = 40; x < BELT_X1; x += 180) { g.fillRect(x, BY + 30, 14, 1010 - BY - 30); g.fillRect(x - 10, 1006, 34, 8); }
+  // frame
+  g.fillStyle = '#9AA6C6'; rr(BELT_X0, BY + 4, BELT_X1 - BELT_X0, 30, 8); g.fill();
+  // belt surface, segments move with the parcels
+  g.fillStyle = '#323A6A'; rr(BELT_X0, BY - 2, BELT_X1 - BELT_X0, 16, 6); g.fill();
+  g.strokeStyle = 'rgba(255,255,255,.18)'; g.lineWidth = 2;
+  const off = (t * V) % 40;
+  for (let x = BELT_X0 + off - 40; x < BELT_X1; x += 40) { g.beginPath(); g.moveTo(x, BY); g.lineTo(x + 10, BY + 12); g.stroke(); }
+  // rollers
+  for (let x = BELT_X0 + 20; x < BELT_X1; x += 60) {
+    g.fillStyle = '#7C88AC'; g.beginPath(); g.arc(x, BY + 20, 9, 0, TAU); g.fill();
+    const a = t / LOOP * TAU * 28; // whole turns per loop g.strokeStyle = '#E8ECF7'; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(x, BY + 20); g.lineTo(x + Math.cos(a) * 8, BY + 20 + Math.sin(a) * 8); g.stroke();
+  }
+}
+function parcels(t) {
+  const list = [];
+  for (let i = 0; i < N; i++) {
+    const [w, h] = SIZES[i];
+    const cx = fr((i * SPAN / N + V * t) / SPAN) * SPAN - 120; // enters off-screen left, wraps hidden behind the van
+    list.push({ i, w, h, cx, x: cx - w / 2, y: BY - h });
+  }
+  return list;
+}
+function box(p, t) {
+  const { x, y, w, h, cx } = p, d = 22;
+  // top face
+  g.fillStyle = C.kraftL; g.beginPath(); g.moveTo(x, y); g.lineTo(x + d, y - d * .7); g.lineTo(x + w + d, y - d * .7); g.lineTo(x + w, y); g.closePath(); g.fill();
+  // side face
+  g.fillStyle = C.kraftD; g.beginPath(); g.moveTo(x + w, y); g.lineTo(x + w + d, y - d * .7); g.lineTo(x + w + d, y + h - d * .7); g.lineTo(x + w, y + h); g.closePath(); g.fill();
+  // front
+  g.fillStyle = C.kraft; g.fillRect(x, y, w, h);
+  // tape
+  g.fillStyle = C.tape; g.fillRect(x + w / 2 - 9, y, 18, h * .42);
+  g.beginPath(); g.moveTo(x + w / 2 - 9, y); g.lineTo(x + w / 2 - 9 + d, y - d * .7); g.lineTo(x + w / 2 + 9 + d, y - d * .7); g.lineTo(x + w / 2 + 9, y); g.closePath(); g.fill();
+  // label (printed at PX)
+  const lk = clamp((cx - PX + 10) / 40);
+  if (lk > 0) {
+    const lw = Math.min(70, w * .48), lh = Math.min(54, h * .5), lx = x + 12, ly = y + h - lh - 12;
+    g.save(); g.globalAlpha = lk; g.translate(lx + lw / 2, ly + lh / 2); g.scale(.6 + .4 * back(lk), .6 + .4 * back(lk));
+    g.fillStyle = '#fff'; rr(-lw / 2, -lh / 2, lw, lh, 4); g.fill();
+    g.fillStyle = C.sky; g.fillRect(-lw / 2, -lh / 2, lw, 7);
+    g.fillStyle = C.ink;
+    const bars = [2, 1, 3, 1, 2, 2, 1, 3, 1, 2, 1, 1, 3, 2];
+    let bx = -lw / 2 + 6;
+    for (let b = 0; b < bars.length && bx < lw / 2 - 6; b++) { if (b % 2 === 0) g.fillRect(bx, -lh / 2 + 13, bars[b], lh - 26); bx += bars[b] + 1.6; }
+    g.fillStyle = '#C5CBE0'; g.fillRect(-lw / 2 + 6, lh / 2 - 9, lw * .55, 3);
+    g.restore();
+  }
+}
+function badge(p, t) {
+  // scanned: check badge pops, "customer notified" pill rises
+  const k = clamp((p.cx - SX - 10) / 50);
+  if (k <= 0) return;
+  const bx = p.x + p.w + 6, by = p.y - 24, s = back(clamp(k * 1.2));
+  g.save(); g.translate(bx, by); g.scale(s, s);
+  g.fillStyle = C.mint; g.beginPath(); g.arc(0, 0, 18, 0, TAU); g.fill();
+  g.strokeStyle = '#fff'; g.lineWidth = 4; g.lineCap = 'round'; g.lineJoin = 'round';
+  g.beginPath(); g.moveTo(-8, 0); g.lineTo(-2, 6); g.lineTo(9, -6); g.stroke(); g.restore();
+  // notification pill (phone + check), rises and fades
+  const q = clamp((p.cx - SX - 20) / 300);
+  if (q <= 0 || q >= 1) return;
+  const px = p.cx - 50, py = p.y - 70 - q * 120;
+  g.save(); g.globalAlpha = Math.min(1, q * 5, (1 - q) * 3);
+  g.shadowColor = 'rgba(15,20,66,.18)'; g.shadowBlur = 18; g.shadowOffsetY = 6;
+  g.fillStyle = '#fff'; rr(px, py, 100, 42, 21); g.fill(); g.shadowColor = 'transparent';
+  g.strokeStyle = C.navy; g.lineWidth = 3; rr(px + 16, py + 9, 16, 24, 4); g.stroke();
+  g.fillStyle = C.navy; g.fillRect(px + 21, py + 28, 6, 2);
+  g.fillStyle = 'rgba(20,184,134,.16)'; rr(px + 42, py + 13, 42, 16, 8); g.fill();
+  g.fillStyle = C.mint; g.beginPath(); g.arc(px + 50, py + 21, 5, 0, TAU); g.fill();
+  g.fillStyle = 'rgba(20,184,134,.55)'; g.fillRect(px + 59, py + 19, 20, 4);
+  g.restore();
+}
+function printer(list) {
+  // nearest parcel drives the print head
+  let near = null; for (const p of list) if (!near || Math.abs(p.cx - PX) < Math.abs(near.cx - PX)) near = p;
+  const d = Math.abs(near.cx - PX), k = clamp(1 - d / 90);
+  const top = BY - 300, headY = top + 70 + (near.y - 12 - (top + 70) - 60) * ease(k);
+  // gantry
+  g.fillStyle = '#C4CCE2'; g.fillRect(PX - 120, top, 16, BY - top + 10); g.fillRect(PX + 104, top, 16, BY - top + 10);
+  g.fillStyle = '#AEB8D6'; rr(PX - 130, top - 14, 260, 28, 10); g.fill();
+  // arm + head
+  g.fillStyle = '#8D99BE'; g.fillRect(PX - 6, top + 10, 12, headY - top - 10);
+  g.fillStyle = C.navy; rr(PX - 44, headY, 88, 54, 10); g.fill();
+  g.fillStyle = k > .85 ? C.mint : '#FFC857'; g.beginPath(); g.arc(PX + 28, headY + 16, 5, 0, TAU); g.fill();
+  g.fillStyle = 'rgba(255,255,255,.25)'; g.fillRect(PX - 30, headY + 40, 60, 5);
+}
+function gate(list, front) {
+  const top = BY - 330, w = 280;
+  let scanning = false; for (const p of list) if (Math.abs(p.cx - SX) < p.w / 2 + 20) scanning = true;
+  if (!front) {
+    // back post + light curtain
+    g.fillStyle = '#C4CCE2'; rr(SX - w / 2 + 16, top + 6, 20, BY - top, 8); g.fill();
+    const col = scanning ? '20,184,134' : '9,176,238';
+    const cur = g.createLinearGradient(SX - 30, 0, SX + 30, 0);
+    cur.addColorStop(0, `rgba(${col},0)`); cur.addColorStop(.5, `rgba(${col},${scanning ? .32 : .16})`); cur.addColorStop(1, `rgba(${col},0)`);
+    g.fillStyle = cur; g.fillRect(SX - 30, top + 30, 60, BY - top - 30);
+    return;
+  }
+  const col = scanning ? C.mint : C.sky;
+  g.fillStyle = '#B4BEDB'; rr(SX - w / 2, top, 26, BY - top + 40, 10); g.fill(); rr(SX + w / 2 - 26, top, 26, BY - top + 40, 10); g.fill();
+  g.fillStyle = '#A0ABCE'; rr(SX - w / 2 - 8, top - 18, w + 16, 40, 14); g.fill();
+  g.fillStyle = col; rr(SX - 50, top - 6, 100, 14, 7); g.fill();
+}
+function scanLine(list, t) {
+  const top = BY - 330;
+  for (const p of list) {
+    const d = p.cx - SX;
+    if (Math.abs(d) < p.w / 2 + 20) {
+      const k = clamp((d + p.w / 2 + 20) / (p.w + 40));
+      const sy = p.y - 20 + (p.h + 10) * (0.5 - 0.5 * Math.cos(k * TAU * 2));
+      g.strokeStyle = 'rgba(20,184,134,.9)'; g.lineWidth = 4; g.shadowColor = C.mint; g.shadowBlur = 14;
+      g.beginPath(); g.moveTo(p.x - 14, sy); g.lineTo(p.x + p.w + 30, sy); g.stroke(); g.shadowBlur = 0;
+    }
+  }
+}
+function shelf() {
+  // racking on the left where parcels come from
+  g.fillStyle = '#CBD3E8'; g.fillRect(0, 560, 16, 450); g.fillRect(250, 560, 16, 450);
+  for (const y of [640, 760, 880]) { g.fillStyle = '#B5BFDB'; g.fillRect(0, y, 266, 12); }
+  const stock = [[20, 588, 90, 52], [120, 600, 70, 40], [196, 584, 52, 56], [24, 700, 70, 60], [104, 712, 120, 48], [30, 830, 110, 50]];
+  for (const [x, y, w, h] of stock) { g.fillStyle = C.kraft; g.fillRect(x, y, w, h); g.fillStyle = C.tape; g.fillRect(x + w / 2 - 6, y, 12, h * .4); }
+}
+
+/* ---------------------------------------------------------------- frame */
+function draw(t) {
+  t = fr(t / LOOP) * LOOP;
+  const sky = g.createLinearGradient(0, 0, 0, 760); sky.addColorStop(0, '#F7F9FF'); sky.addColorStop(1, '#EDF2FD');
+  g.fillStyle = sky; g.fillRect(0, 0, W, 760);
+  world(t);
+  road(t);
+  floor();
+  shelf();
+  const list = parcels(t);
+  gate(list, false);
+  conveyor(t);
+  list.sort((a, b) => a.cx - b.cx).forEach(p => box(p, t));
+  scanLine(list, t);
+  printer(list);
+  gate(list, true);
+  // loading ramp into the van, then the van (it hides parcels as they go in)
+  g.fillStyle = '#9AA6C6'; g.beginPath(); g.moveTo(1350, BY + 4); g.lineTo(1400, BY - 6); g.lineTo(1400, BY + 18); g.lineTo(1350, BY + 34); g.closePath(); g.fill();
+  list.forEach(p => badge(p, t));
+  van(1350, 652, 1.0, 1, Math.sin(t / .5 * TAU) * 1.2);
+}
+window.draw = draw;
+
+// live preview when opened directly
+if (!/render/.test(location.search)) { const s = performance.now(); const loop = n => { draw((n - s) / 1000); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
+</script></body></html>

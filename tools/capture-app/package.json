@@ -1,0 +1,11 @@
+{
+  "name": "fullstro-capture-app",
+  "private": true,
+  "description": "Screenshots of the real tenant dashboard with demo fixtures, for the homepage",
+  "scripts": {
+    "capture": "node capture.js bd dashboard orders inventory invoice label courier tracking delivered product-ai theme-builder addons && node capture.js global dashboard orders inventory invoice label courier tracking delivered product-ai theme-builder addons && python3 export.py"
+  },
+  "dependencies": {
+    "puppeteer-core": "23.11.1"
+  }
+}

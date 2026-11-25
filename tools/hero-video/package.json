@@ -1,0 +1,7 @@
+{
+  "name": "fullstro-hero-video",
+  "private": true,
+  "description": "Renders the hero background video (scene.html) to WebM + MP4 + poster",
+  "scripts": { "render": "node render.js" },
+  "dependencies": { "puppeteer-core": "23.11.1" }
+}
